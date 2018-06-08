@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>CSS Test (Selectors): Keyboard focus enables :focus-visible</title>
+  <title>CSS Test (Selectors): Keyboard use triggers :focus-visible</title>
   <link rel="author" title="Alice Boxhall" href="aboxhall@chromium.org" />
   <link rel="help" href="https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo" />
   <script src="/resources/testharness.js"></script>
@@ -10,16 +10,42 @@
   <script src="/resources/testdriver.js"></script>
   <script src="/resources/testdriver-vendor.js"></script>
   <style>
-    body[data-hadkeydown] #one:focus-visible { background-color: rgb(128, 196, 128); }
-    body:not([data-hadkeydown]) #one:focus-visible { background-color: rgb(196, 128, 128); }
+    :root {
+      --focus-light: hsl(50, 94%, 72%);
+      --focus-visible-light: hsl(208, 56%, 78%);
+      --focus-visible-dark: hsl(208, 56%, 70%);
+    }
 
-    body:not([data-hadkeydown]) #two:focus-visible { background-color: rgb(196, 128, 128); }
-    body:not([data-hadkeydown]) #two:focus:not(:focus-visible) {
-      background-color: rgb(128, 196, 128);
+    :focus-visible {
+      background: repeating-linear-gradient(
+        45deg,
+        var(--focus-visible-light),
+        var(--focus-visible-light) 10px,
+        var(--focus-visible-dark) 10px,
+        var(--focus-visible-dark) 20px
+      );
+      background-color: var(--focus-visible-light);
+    }
+
+    :focus:not(:focus-visible) {
+      background-color: var(--focus-light);
     }
   </style>
 </head>
 <body>
+  This test checks that using the keyboard in a way that does not move focus still causes <code>:focus-visible</code> matching to trigger.
+  <ol id="instructions">
+    <li>If the user-agent does not claim to support the <code>:focus-visible</code> pseudo-class then SKIP this test.</li>
+    <li>Use the mouse to focus the element below that says "Click me first."</li>
+    <li>If the element has a striped blue background, then the test result is FAILURE.</li>
+    <li>Press the SHIFT key.</li>
+    <li>If the element now DOES NOT have a striped blue background, then the test result is FAILURE..</li>
+    <li>Use the mouse to click the element that says "Click me first." a second time</li>
+    <li>If the element now DOES NOT still have a striped blue background, then the test result is FAILURE.</li>
+    <li>Use the mouse to click the element below that says "Click me second."</li>
+        <li>If the element has a solid yellow background then the test result is SUCCESS.</li>
+  </ol>
+
   <div id="one" tabindex="0">Click me first.</div>
   <div id="two" tabindex="0">Click me second.</div>
   <script>
