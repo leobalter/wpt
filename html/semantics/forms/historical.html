@@ -73,6 +73,14 @@ t('form', 'meter');
 t('item', 'form');
 t('namedItem', 'form');
 
+// <input type=search incremental>
+// rejected in https://html.spec.whatwg.org/multipage/#dom-input-type
+t('incremental', 'input');
+
+// <input type=search onsearch>
+// rejected in https://html.spec.whatwg.org/multipage/#dom-input-type
+t('onsearch', 'input');
+
 // <input name=isindex>
 // removed in https://github.com/whatwg/html/commit/5c44abc734eb483f9a7ec79da5844d2fe63d9c3b
 async_test(function() {
