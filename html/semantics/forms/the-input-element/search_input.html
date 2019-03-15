@@ -15,29 +15,19 @@
 
 
       <h1>Search Input</h1>
-      <input id="s1" type="search" style="display:none" placeholder="Search..." />
-
-      <input id="s2" type="search" style="display:none" incremental onsearch="throw 'Error';" />
+      <input type="search" style="display:none" placeholder="Search..." />
 
     <div id="log">
     </div>
 
   <script type="text/javascript">
 
-    test(function() {assert_equals(document.getElementById('s1').type, "search")}, "search type support on input element", {
+
+    test(function() {assert_equals(document.getElementsByTagName("input")[0].type, "search")}, "search type support on input element", {
       "help" : "https://html.spec.whatwg.org/multipage/#dom-input-type" });
-    test(function() {assert_equals(document.getElementById('s1').placeholder, "Search...")}, "placeholder attribute support on input element", {
+    test(function() {assert_equals(document.getElementsByTagName("input")[0].placeholder, "Search...")}, "placeholder attribute support on input element", {
       "help" : "https://html.spec.whatwg.org/multipage/#dom-input-placeholder" });
 
-    test(function() {assert_equals(document.getElementById('s2').incremental, undefined)}, "no definition for atribute incremental", {
-      "help" : "https://html.spec.whatwg.org/multipage/#dom-input-type" });
-    test(function() {assert_equals(document.getElementById('s2').onsearch, undefined)}, "no definition for atribute onsearch", {
-      "help" : "https://html.spec.whatwg.org/multipage/#dom-input-type" });
-
-    test(function() {assert_true('incremental' in document.getElementById('s2'))}, "no incremental in the input properties chain", {
-      "help" : "https://html.spec.whatwg.org/multipage/#dom-input-type" });
-    test(function() {assert_true('onsearch' in document.getElementById('s2'))}, "no onsearch in the input properties chain", {
-      "help" : "https://html.spec.whatwg.org/multipage/#dom-input-type" });
   </script>
 
   </body>
